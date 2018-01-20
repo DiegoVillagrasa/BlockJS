@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/DiegoVillagrasa/BlockJS/issues"
   },
-  "homepage": "https://github.com/DiegoVillagrasa/BlockJS#readme"
+  "homepage": "https://github.com/DiegoVillagrasa/BlockJS#readme",
+  "dependencies": {
+    "ip": "^1.1.5",
+    "smokesignal": "^0.2.2"
+  }
 }

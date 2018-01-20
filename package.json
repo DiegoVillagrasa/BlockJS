@@ -1,0 +1,19 @@
+{
+  "name": "blockjs",
+  "version": "1.0.0",
+  "description": "Barebones implementation of a blockchain in NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiegoVillagrasa/BlockJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DiegoVillagrasa/BlockJS/issues"
+  },
+  "homepage": "https://github.com/DiegoVillagrasa/BlockJS#readme"
+}

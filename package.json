@@ -18,6 +18,7 @@
   "homepage": "https://github.com/DiegoVillagrasa/BlockJS#readme",
   "dependencies": {
     "ip": "^1.1.5",
+    "n2n": "0.0.7",
     "smokesignal": "^0.2.2"
   }
 }

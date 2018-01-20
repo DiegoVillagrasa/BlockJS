@@ -1,28 +1,11 @@
-var smoke = require('smokesignal')
-var ip = require("ip")
+var Node = require('n2n').Node;
+var node = new Node(6785);
+node.connect([{ host: '10.8.117.131', port: 6785 }]);
 
-console.log("Creating Node")
+node.on('online', function () {
+  console.log('I am online:', this.id);
+});
 
-var nodeIp = ip.address()
-
-var node = smoke.createNode({
-  port: 8495
-, address: smoke.localIp(nodeIp) // Tell it your subnet and it'll figure out the right IP for you
-, seeds: [{port: 8495, address:'45.55.76.194'}] // the address of a seed (a known node)
-})
-
-console.log(node.options)
-
-node.on('connect', function() {
-    console.log("Connected to peer")
-    console.log(node.peers)
-    node.broadcast.write('Hi')
-    //Ask for latest block
-})
-
-node.on('disconnect', function() {
-
-})
-
-// Start the darn thing
-node.start()
+node.on('node::online', function (newNode) {
+  console.log('Someone is online:', newNode.id);
+});

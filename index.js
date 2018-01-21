@@ -6,6 +6,7 @@ initialize()
 async function initialize(){
     await network.mapPort()
     network.startServer()
+    network.connectToSeeds()
 }
 
 async function exitHandler() {
@@ -21,4 +22,7 @@ process.on('exit', exitHandler.bind());
 process.on('SIGINT', exitHandler.bind());
 
 //catches uncaught exceptions
-process.on('uncaughtException', exitHandler.bind());
+process.on('uncaughtException', (e) => {
+    console.log(e)
+    exitHandler.bind()
+});

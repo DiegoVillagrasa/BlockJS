@@ -1,7 +1,12 @@
 const net = require('net');
 var natUpnp = require('nat-upnp');
+const uuidv4 = require('uuid/v4')
+const { StringDecoder } = require('string_decoder');
+const decoder = new StringDecoder('utf8');
 
 const SPort = 8621
+
+var clients = []
 
 //CReate a new UPNP client
 var client = natUpnp.createClient();
@@ -36,28 +41,42 @@ module.exports.unMapPort = function(){
 
 var server = net.createServer(function(socket) {
   socket.write('Welcome\r\n');
+  socket.name = uuidv4()
+  clients.push(socket)
   console.log(socket.address())
-  
-	socket.on('connect', (e) => {
-    console.log('Socket has been created')
-    
-    //console.log(e)
-  })
+
 
   socket.on('close', (e) => {
     console.log('Socket has been closed')
-    console.log(e)
+    removeClient(e.name)
   })
 
   socket.on('data', (data) => {
-    console.log(data)
+    console.log(decoder.write(data))
   })
 
   socket.on('end', (e) => {
     console.log("Socket has been disconnected")
-    console.log(e)
+    removeClient(e.name)
   })
 });
+
+function removeClient(name){
+  for(i=0; i < clients.length; i++){
+    if(clients[i].name == name){
+      clients.splice(i,1)
+      return
+    }
+  }
+}
+
+module.exports.broadcast = function(data){
+  for (let i = 0; i < clients.length; i++) {
+    clients[i].write(data)
+  }
+}
+
+
 
 module.exports.startServer = function(){
   server.listen(SPort, '0.0.0.0')
